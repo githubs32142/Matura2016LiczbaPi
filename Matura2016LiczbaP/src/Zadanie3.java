@@ -5,14 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 /**
  *
  * @author Admin
@@ -31,27 +25,27 @@ public class Zadanie3 {
             StringTokenizer st = new StringTokenizer(text);
             String word = st.nextToken();
             String cipherWors = st.nextToken();
-            int tmp=0;
-            boolean wrong=false;
+            int key=0;// klucz dla kolejnego słowa
+            boolean wrong=false;// czy słowo zostało zakodowane z błędem?
             for(int i=0;i<word.length();i++){
-                if(i==0){
-                    tmp=cipherWors.charAt(i)-word.charAt(i);
-                    if(tmp<0){
-                        tmp=26+tmp;
+                if(i==0){// wydobywanie klucza z 1 litery
+                    key=cipherWors.charAt(i)-word.charAt(i);
+                    if(key<0){
+                        key=26+key;
                     }
                 }
                 else{
-                    int singCipher=word.charAt(i)+tmp;
-                    if(singCipher!=cipherWors.charAt(i)){
-                        singCipher=word.charAt(i)-26+tmp;
-                        if(singCipher!=cipherWors.charAt(i)){
-                            wrong=true;
-                            break;
+                    int singCipher=word.charAt(i)+key;// zaszyfrowany znak
+                    if(singCipher!=cipherWors.charAt(i)){// jeżeli znaki się nie zgadzają 
+                        singCipher=word.charAt(i)-26+key;// szyfrowanie uwzględniające zwijanie
+                        if(singCipher!=cipherWors.charAt(i)){// jeżeli znaki nadal się nie zgadzają
+                            wrong=true;// błąd słowo zakodowane jest błędne
+                            break;// zakończ sprawdzanie
                         }
                     }
                 }
                 }
-                if(wrong==true){
+                if(wrong==true){// jeżeli błąd sprawdznia wypisz
                     System.out.println(word);
                 }
         }
